@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BulletController : MonoBehaviour {
 
-	public float speed = 15.0f;
+	public float speed = 50.0f;
 	public bool hit = false;
 
 	public void fire()

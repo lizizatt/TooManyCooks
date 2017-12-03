@@ -18,6 +18,12 @@ public class SceneController : MonoBehaviour {
 	public float cookSpeedGainPerDeath = .01f;
 	private float cookSpeed;
 
+	public Light sceneLight = null;
+	public ParticleSystem mistParticleSystem = null;
+	public float mistInKillCount = 10;
+	public float mistMaxKillCount = 300;
+	public float mistRateMax = 500;
+
 	public GameObject textObject = null;
 
 	private Mutex cookMutex = new Mutex();
@@ -64,7 +70,6 @@ public class SceneController : MonoBehaviour {
 		if (cooks.Count < numberOfCooks) {
 			spawnCooks ();
 		}
-
 	}
 
 	void spawnCooks()
@@ -87,5 +92,17 @@ public class SceneController : MonoBehaviour {
 		cooksToSpawn = 0;
 
 		cookMutex.ReleaseMutex ();
+
+		float intensity = Mathf.Max (0.0f, Mathf.Min (1.0f, (numberOfCooks - mistInKillCount) / (mistMaxKillCount - mistInKillCount)));
+		if (mistParticleSystem != null && numberOfCooks > mistInKillCount) {
+			//mistParticleSystem.Emit((int) (intensity * mistRateMax));
+		}
+		if (sceneLight != null) {
+			Color c = sceneLight.color;
+			c.r = 1.0f - intensity * 0.9f;
+			c.g = 1.0f - intensity * 0.9f;
+			c.b = 1.0f - intensity;
+			sceneLight.color = c;
+		}
 	}
 }

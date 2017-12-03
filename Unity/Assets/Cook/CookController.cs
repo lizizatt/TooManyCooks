@@ -6,6 +6,7 @@ public class CookController : MonoBehaviour {
 	private GameObject _player;
 	private float health = 50;
 	public float speed = 1.0f;
+	public GameObject bloodSplatterPrefab = null;
 	bool died = false;
 
 	// Use this for initialization
@@ -39,6 +40,9 @@ public class CookController : MonoBehaviour {
 		if (health <= 0) {
 			if (!died) {
 				SceneController.Instance.CookDied (gameObject);
+				GameObject bs = GameObject.Instantiate (bloodSplatterPrefab);
+				bs.transform.position = transform.position;
+				bs.transform.RotateAround (bs.transform.position, new Vector3 (0, 0, 1), Random.Range (0, 360));
 				died = true;
 			}
 		}
