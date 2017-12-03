@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: bc8d87c10ce7f57429a208c5c915a4d7
-timeCreated: 1512303110
+timeCreated: 1512306263
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bulletPrefab: {instanceID: 0}
+  - bulletSound: {fileID: 8300000, guid: 92a3fc6075ede9643a48644ff97b8d8f, type: 3}
+  - bulletDropSound: {fileID: 8300000, guid: 2c089c46c8f6c5f4b9641be0153433ea, type: 3}
+  - audioSource: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
