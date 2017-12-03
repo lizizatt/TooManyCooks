@@ -1,0 +1,42 @@
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Assembly-CSharp.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Assembly-CSharp.pdb
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEditor.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEngine.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEngine.Networking.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEngine.UI.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Mono.Cecil.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Unity.SerializationLogic.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Unity.DataContract.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Unity.UNetWeaver.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Unity.CecilTools.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEngine.xml
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEditor.xml
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEngine.UI.xml
+L:\TooManyCooks\Too Many Cooks\Temp\bin\Debug\UnityEngine.Networking.xml
+L:\TooManyCooks\Too Many Cooks\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+L:\TooManyCooks\Too Many Cooks\obj\Debug\Assembly-CSharp.dll
+L:\TooManyCooks\Too Many Cooks\obj\Debug\Assembly-CSharp.pdb
+L:\TooManyCooks\Unity\Temp\bin\Debug\Assembly-CSharp.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Assembly-CSharp.pdb
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEditor.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEngine.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEngine.Networking.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEngine.UI.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Mono.Cecil.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Unity.SerializationLogic.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Unity.DataContract.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Unity.UNetWeaver.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Unity.CecilTools.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEngine.xml
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEditor.xml
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEngine.UI.xml
+L:\TooManyCooks\Unity\Temp\bin\Debug\UnityEngine.Networking.xml
+L:\TooManyCooks\Unity\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+L:\TooManyCooks\Unity\obj\Debug\Assembly-CSharp.dll
+L:\TooManyCooks\Unity\obj\Debug\Assembly-CSharp.pdb

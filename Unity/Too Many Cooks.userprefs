@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SceneController.cs">
+    <Files>
+      <File FileName="Assets\SceneController.cs" Line="77" Column="54" />
+      <File FileName="Assets\Cook\CookController.cs" Line="30" Column="44" />
+      <File FileName="Assets\Player\PlayerController.cs" Line="21" Column="3" />
+      <File FileName="Assets\Player\BulletController.cs" Line="7" Column="25" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
