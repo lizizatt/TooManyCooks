@@ -83,6 +83,9 @@ public class PlayerController : MonoBehaviour {
 			|| (guns[activeGun].Auto() && Input.GetButton("Fire1"))) {
 			guns[activeGun].Fire ();
 		}
+		if (Input.GetButtonUp("Fire1") && guns[activeGun].Auto()) {
+			guns[activeGun].StopFire ();
+		}
 	}
 
 	public void die()

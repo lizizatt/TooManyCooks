@@ -7,6 +7,10 @@ using System.Collections.Generic;
 
 public class SceneController : MonoBehaviour {
 
+	public bool godMode = true;
+
+	public int maxSpawnedCooks = 400;
+
 	public float spawnWallXVal = 5;
 	public float spawnWallHeight = 5;
 	public GameObject cookPrefab = null;
@@ -160,7 +164,7 @@ public class SceneController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (playing && cooks.Count < numberOfCooks) {
+		if (playing && cooks.Count < maxSpawnedCooks && cooks.Count < numberOfCooks) {
 			spawnCooks ();
 		}
 		RunFade ();

@@ -33,16 +33,24 @@ public class CookController : MonoBehaviour {
 		gameObject.transform.position += new Vector3 (_player.transform.position.x - this.gameObject.transform.position.x, _player.transform.position.y - this.gameObject.transform.position.y, _player.transform.position.z - this.gameObject.transform.position.z).normalized * speed * Time.deltaTime;
 	}
 
+	void OnCollisionStay2D(Collision2D collision) {
+		if (collision.gameObject.name == "FlamethrowerCollider") {
+			takeDamage (1);
+		}
+	}
+
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.enabled && collision.gameObject != null) {
-			BulletController controller = collision.gameObject.GetComponent<BulletController> ();
+			if (collision.enabled && collision.gameObject != null) {
+			if (collision.gameObject.name != "FlamethrowerCollider") {
+				BulletController controller = collision.gameObject.GetComponent<BulletController> ();
 
-			if (controller != null && !controller.hit) {
-				takeDamage (25);
-				collision.gameObject.GetComponent<BulletController> ().hit = true;
-				collision.gameObject.SetActive (false);
-				DestroyObject (collision.gameObject);
+				if (controller != null && !controller.hit) {
+					takeDamage (25);
+					collision.gameObject.GetComponent<BulletController> ().hit = true;
+					collision.gameObject.SetActive (false);
+					DestroyObject (collision.gameObject);
+				}
 			}
 		}
 	}

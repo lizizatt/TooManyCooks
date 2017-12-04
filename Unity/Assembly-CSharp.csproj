@@ -47,9 +47,10 @@
   <ItemGroup>
      <Compile Include="Assets\Cook\BloodController.cs" />
      <Compile Include="Assets\Cook\CookController.cs" />
+     <Compile Include="Assets\Player\FlameThrower\Flamethrower.cs" />
+     <Compile Include="Assets\Player\GunBase.cs" />
      <Compile Include="Assets\Player\Guns\BulletController.cs" />
      <Compile Include="Assets\Player\Guns\GatlingGun.cs" />
-     <Compile Include="Assets\Player\Guns\GunBase.cs" />
      <Compile Include="Assets\Player\Guns\GunUIController.cs" />
      <Compile Include="Assets\Player\Guns\Pistol.cs" />
      <Compile Include="Assets\Player\Guns\Shotgun.cs" />
