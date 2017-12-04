@@ -86,7 +86,6 @@ public class PlayerController : MonoBehaviour {
 		for (int i = 0; playerAudioSource != null && i < murderSounds.Length; i++) {
 			playerAudioSource.PlayOneShot (murderSounds [i]);
 		}
-		FindObjectOfType<Light> ().color = new Color (0, 0, 0);
 
 		SceneController.Instance.PlayerDied ();
 	}

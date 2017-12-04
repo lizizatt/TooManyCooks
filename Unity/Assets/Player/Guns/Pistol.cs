@@ -20,7 +20,7 @@ public class Pistol : GunBase {
 		newBullet.GetComponent<BulletController>().fire();
 
 		if (bulletSound != null) {
-			audioSource.PlayOneShot (bulletSound);
+			audioSource.PlayOneShot (bulletSound, 0.2f);
 		}
 	}
 

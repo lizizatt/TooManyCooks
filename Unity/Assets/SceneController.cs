@@ -15,6 +15,9 @@ public class SceneController : MonoBehaviour {
 	public GameObject blackMask = null;
 	public float fadeLength = 2.0f;
 
+	public GameObject finalScoreObject = null;
+	public GameObject tryAgainButton = null;
+
 	public GameObject bigCook1 = null;
 	public GameObject bigCook2 = null;
 
@@ -31,10 +34,13 @@ public class SceneController : MonoBehaviour {
 	public float startingCookSpeed = 5.0f;
 	public float cookSpeedGainPerDeath = .01f;
 
-	private float fadeStart = -1.0f;
+	private float fadeOutStart = -1.0f;
+	private float fadeInStart = -1.0f;
 
 	private int numberOfCooks;
 	private float cookSpeed;
+
+	private bool playing = true;
 
 	private Mutex cookMutex = new Mutex();
 
@@ -54,21 +60,68 @@ public class SceneController : MonoBehaviour {
 
 	public void PlayerDied()
 	{
-		fadeStart = Time.time;
+		Debug.Log ("Player died");
+		fadeOutStart = Time.time;
+		playing = false;
+		blackMask.SetActive (true);
 	}
 
-	void runFade()
+	//called every frame, if fadestart was set then it runs fade and eventually times out the scene, fading to black and showing the final score
+	void RunFade()
 	{
-		if (fadeStart > 0 && blackMask != null) {
+		if (fadeOutStart > 0) {
 			SpriteRenderer sr = blackMask.GetComponent<SpriteRenderer> ();
 			Color c = sr.color;
-			c.a = Mathf.Min (Mathf.Max (0.0f, (Time.time - fadeStart) / fadeLength), 1.0f);
+			c.a = Mathf.Min (Mathf.Max (0.0f, (Time.time - fadeOutStart) / fadeLength), 1.0f);
+			sr.color = c;
+
+			if (c.a >= 1.0f) {
+				Debug.Log ("Faded out");
+				//at this point players are put in to a screen showing final score & restart button
+				fadeOutStart = -1.0f;
+				finalScoreObject.SetActive (true);
+				finalScoreObject.GetComponent<Text> ().text = "Final Score: " + numberOfCooks + (numberOfCooks > 1? " cooks" : " cook");
+				textObject.SetActive (false);
+				tryAgainButton.SetActive (true);
+			}
+		}
+
+		if (fadeInStart > 0) {
+			SpriteRenderer sr = blackMask.GetComponent<SpriteRenderer> ();
+			Color c = sr.color;
+			c.a = Mathf.Min (Mathf.Max (0.0f, 1.0f - (Time.time - fadeInStart) / fadeLength), 1.0f);
 			sr.color = c;
 
 			if (c.a <= 0.0f) {
-				fadeStart = -1.0f;
+				Debug.Log ("Faded in");
+				fadeInStart = -1.0f;
+				blackMask.SetActive (false);
 			}
 		}
+	}
+
+	//Starts a fade back in and cleans up
+	public void Restart()
+	{
+		cookMutex.WaitOne ();
+		numberOfCooks = 1;
+		for (int i = 0; i < cooks.Count; i++) {
+			Destroy (cooks [i]);
+		}
+		cooks.Clear ();
+		BloodController[] bloods = FindObjectsOfType<BloodController> ();
+		for (int i = 0; i < bloods.Length; i++) {
+			Destroy (bloods [i].gameObject);
+		}
+		fadeInStart = Time.time;
+		finalScoreObject.GetComponent<Text> ().text = "";
+		textObject.GetComponent<Text> ().text = "";
+		textObject.SetActive (true);
+		finalScoreObject.SetActive (false);
+		tryAgainButton.SetActive (false);
+		PlayerController.Instance.reset ();
+		playing = true;
+		cookMutex.ReleaseMutex ();
 	}
 
 	public void CookDied(GameObject cook)
@@ -92,14 +145,16 @@ public class SceneController : MonoBehaviour {
 		cookSpeed = startingCookSpeed;
 
 		spawnCooks ();
+
+		tryAgainButton.GetComponent<Button> ().onClick.AddListener (Restart);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (cooks.Count < numberOfCooks) {
+		if (playing && cooks.Count < numberOfCooks) {
 			spawnCooks ();
 		}
-		runFade ();
+		RunFade ();
 	}
 
 	void spawnCooks()
@@ -119,7 +174,7 @@ public class SceneController : MonoBehaviour {
 			cooks.Add (newCook);
 		}
 
-		textObject.GetComponent<Text> ().text = numberOfCooks.ToString () + " cooks in the kitchen.";
+		textObject.GetComponent<Text> ().text = numberOfCooks.ToString () + (numberOfCooks > 1? " cooks" : " cook") + " in the kitchen.";
 
 		cooksToSpawn = 0;
 

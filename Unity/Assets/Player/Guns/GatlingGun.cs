@@ -23,8 +23,8 @@ public class GatlingGun : GunBase {
 		newBullet.GetComponent<BulletController>().fire();
 
 		if (bulletSound != null && bulletDropSound != null && (Time.time - lastFireTime) > soundFireRate) {
-			audioSource.PlayOneShot (bulletSound);
-			audioSource.PlayOneShot (bulletDropSound);
+			audioSource.PlayOneShot (bulletSound, 0.5f);
+			audioSource.PlayOneShot (bulletDropSound, 0.5f);
 			lastFireTime = Time.time;
 		}
 	}
