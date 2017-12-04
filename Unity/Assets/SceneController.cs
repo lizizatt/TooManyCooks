@@ -11,12 +11,10 @@ public class SceneController : MonoBehaviour {
 	public float spawnWallHeight = 5;
 	public GameObject cookPrefab = null;
 
-	public int startingNumberOfCooks = 1;
-	private int numberOfCooks;
-	public int newCooksPerDeath = 1;
-	public float startingCookSpeed = 5.0f;
-	public float cookSpeedGainPerDeath = .01f;
-	private float cookSpeed;
+	public GameObject bigCook1 = null;
+	public GameObject bigCook2 = null;
+
+	public GameObject textObject = null;
 
 	public Light sceneLight = null;
 	public ParticleSystem mistParticleSystem = null;
@@ -24,7 +22,13 @@ public class SceneController : MonoBehaviour {
 	public float mistMaxKillCount = 300;
 	public float mistRateMax = 500;
 
-	public GameObject textObject = null;
+	public int startingNumberOfCooks = 1;
+	public int newCooksPerDeath = 1;
+	public float startingCookSpeed = 5.0f;
+	public float cookSpeedGainPerDeath = .01f;
+
+	private int numberOfCooks;
+	private float cookSpeed;
 
 	private Mutex cookMutex = new Mutex();
 
@@ -103,6 +107,24 @@ public class SceneController : MonoBehaviour {
 			c.g = 1.0f - intensity * 0.9f;
 			c.b = 1.0f - intensity;
 			sceneLight.color = c;
+		}
+		if (bigCook1 != null && intensity > 0) {
+			bigCook1.SetActive (true);
+			SpriteRenderer[] sprites = bigCook1.GetComponentsInChildren<SpriteRenderer> ();
+			for (int i = 0; i < sprites.Length; i++) {
+				Color c = sprites [i].color;
+				c.a = intensity;
+				sprites [i].color = c;
+			}
+		}
+		if (bigCook2 != null && intensity > 0) {
+			bigCook2.SetActive (true);
+			SpriteRenderer[] sprites = bigCook2.GetComponentsInChildren<SpriteRenderer> ();
+			for (int i = 0; i < sprites.Length; i++) {
+				Color c = sprites [i].color;
+				c.a = intensity;
+				sprites [i].color = c;
+			}
 		}
 	}
 }

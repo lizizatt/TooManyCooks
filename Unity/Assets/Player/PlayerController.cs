@@ -8,14 +8,17 @@ public class PlayerController : MonoBehaviour {
 	public GunBase[] guns = null;
 	public int activeGun = 0;
 
-	private GameObject _reticle = null;
+	public AudioClip[] murderSounds = null;
+	public AudioSource playerAudioSource = null;
 
-	private float prevMouseX = -1;
-	private float prevMouseY = -1;
+
+	private GameObject _reticle = null;
 
 	public float gunDistance = 1.5f;
 
 	private Vector3 originalGunRight;
+
+	bool dead = false;
 
 	private static PlayerController _instance = null;
 	public static PlayerController Instance
@@ -38,21 +41,30 @@ public class PlayerController : MonoBehaviour {
 		}
 		Debug.Assert (_reticle != null);
 	}
-	
+
+	void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.enabled && collision.gameObject != null) {
+			CookController controller = collision.gameObject.GetComponent<CookController>();
+
+			if (controller != null) {
+				die ();
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
-		float mouseX = Input.GetAxis ("Mouse X") * mouseSensitivityMultiplier;
-		float mouseY = Input.GetAxis ("Mouse Y") * mouseSensitivityMultiplier;
-		if (prevMouseX != -1) {
-			Vector3 newPos = _reticle.transform.position + new Vector3 (mouseX, mouseY, 0);
-			newPos.x = Mathf.Min(Mathf.Max(newPos.x, -75), 75);
-			newPos.y = Mathf.Min(Mathf.Max(newPos.y, -75), 75);
-
-			_reticle.transform.position = newPos;
+		if (dead) {
+			return;
 		}
 
-		prevMouseX = mouseX;
-		prevMouseY = mouseY;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+		float rayDistance;
+		Plane playerPlane = new Plane (new Vector3 (0, 0, 1.0f), this.transform.position);
+		if (playerPlane.Raycast(ray, out rayDistance))
+			_reticle.transform.position = ray.GetPoint(rayDistance);
 
 		if (Input.GetButtonDown("Fire2")) {
 			guns [activeGun].gameObject.SetActive (false);
@@ -66,6 +78,20 @@ public class PlayerController : MonoBehaviour {
 			|| (guns[activeGun].Auto() && Input.GetButton("Fire1"))) {
 			guns[activeGun].Fire ();
 		}
+	}
+
+	public void die()
+	{
+		dead = true;
+		for (int i = 0; playerAudioSource != null && i < murderSounds.Length; i++) {
+			playerAudioSource.PlayOneShot (murderSounds [i]);
+		}
+		FindObjectOfType<Light> ().color = new Color (0, 0, 0);
+	}
+
+	public void reset()
+	{
+		dead = false;
 	}
 
 	void PositionGun()

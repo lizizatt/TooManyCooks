@@ -17,7 +17,7 @@ public class CookController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gameObject.transform.position += new Vector3 (_player.transform.position.x - this.gameObject.transform.position.x, 0, _player.transform.position.z - this.gameObject.transform.position.z).normalized * speed * Time.deltaTime;
+		gameObject.transform.position += new Vector3 (_player.transform.position.x - this.gameObject.transform.position.x, _player.transform.position.y - this.gameObject.transform.position.y, _player.transform.position.z - this.gameObject.transform.position.z).normalized * speed * Time.deltaTime;
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
