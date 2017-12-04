@@ -101,7 +101,9 @@ public class SceneController : MonoBehaviour {
 				for (int i = 10; i < cooks.Count; i++) {
 					Destroy (cooks [i]);
 				}
-				cooks.RemoveRange(10, cooks.Count - 10);
+				if (cooks.Count >= 10) {
+					cooks.RemoveRange(10, cooks.Count - 10);
+				}
 
 				HighScores.Instance.gameObject.SetActive (true);
 				if (HighScores.Instance.IsNewHighScore (numberOfCooks)) {
