@@ -50,7 +50,9 @@
      <Compile Include="Assets\Player\Guns\BulletController.cs" />
      <Compile Include="Assets\Player\Guns\GatlingGun.cs" />
      <Compile Include="Assets\Player\Guns\GunBase.cs" />
+     <Compile Include="Assets\Player\Guns\GunUIController.cs" />
      <Compile Include="Assets\Player\Guns\Pistol.cs" />
+     <Compile Include="Assets\Player\Guns\Shotgun.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
      <Compile Include="Assets\SceneController.cs" />
  <Reference Include="UnityEngine.UI">

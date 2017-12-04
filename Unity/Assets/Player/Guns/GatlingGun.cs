@@ -15,6 +15,16 @@ public class GatlingGun : GunBase {
 		audioSource = GetComponent<AudioSource> ();
 	}
 
+	public override int UnlockKillCount()
+	{
+		return 25;
+	}
+
+	public override string GetGunName()
+	{
+		return "Gatling Gun";
+	}
+
 	public override void Fire()
 	{
 		GameObject newBullet = GameObject.Instantiate (bulletPrefab);

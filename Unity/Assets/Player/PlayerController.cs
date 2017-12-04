@@ -67,9 +67,14 @@ public class PlayerController : MonoBehaviour {
 			_reticle.transform.position = ray.GetPoint(rayDistance);
 
 		if (Input.GetButtonDown("Fire2")) {
-			guns [activeGun].gameObject.SetActive (false);
-			activeGun = (activeGun + 1) % guns.Length;
-			guns [activeGun].gameObject.SetActive (true);
+			while (true) {
+				guns [activeGun].gameObject.SetActive (false);
+				activeGun = (activeGun + 1) % guns.Length;
+				if (guns[activeGun].Unlocked()) {
+					guns [activeGun].gameObject.SetActive (true);
+					break;
+				}
+			}
 		}	
 
 		PositionGun ();
@@ -93,6 +98,10 @@ public class PlayerController : MonoBehaviour {
 	public void reset()
 	{
 		dead = false;
+
+		guns [activeGun].gameObject.SetActive (false);
+		activeGun = 0;
+		guns [activeGun].gameObject.SetActive (true);
 	}
 
 	void PositionGun()

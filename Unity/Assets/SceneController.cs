@@ -15,6 +15,8 @@ public class SceneController : MonoBehaviour {
 	public GameObject blackMask = null;
 	public float fadeLength = 2.0f;
 
+	public GameObject gunUI = null;
+
 	public GameObject finalScoreObject = null;
 	public GameObject tryAgainButton = null;
 
@@ -58,6 +60,11 @@ public class SceneController : MonoBehaviour {
 		}
 	}
 
+	public int GetNumCooks()
+	{
+		return numberOfCooks;
+	}
+
 	public void PlayerDied()
 	{
 		Debug.Log ("Player died");
@@ -80,6 +87,7 @@ public class SceneController : MonoBehaviour {
 				//at this point players are put in to a screen showing final score & restart button
 				fadeOutStart = -1.0f;
 				finalScoreObject.SetActive (true);
+				gunUI.SetActive (false);
 				finalScoreObject.GetComponent<Text> ().text = "Final Score: " + numberOfCooks + (numberOfCooks > 1? " cooks" : " cook");
 				textObject.SetActive (false);
 				tryAgainButton.SetActive (true);
@@ -119,6 +127,7 @@ public class SceneController : MonoBehaviour {
 		textObject.SetActive (true);
 		finalScoreObject.SetActive (false);
 		tryAgainButton.SetActive (false);
+		gunUI.SetActive (true);
 		PlayerController.Instance.reset ();
 		playing = true;
 		cookMutex.ReleaseMutex ();
