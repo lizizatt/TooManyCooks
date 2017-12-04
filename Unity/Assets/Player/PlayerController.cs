@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.enabled && collision.gameObject != null) {
+		if (!dead && collision.enabled && collision.gameObject != null) {
 			CookController controller = collision.gameObject.GetComponent<CookController>();
 
 			if (controller != null) {
@@ -87,6 +87,8 @@ public class PlayerController : MonoBehaviour {
 			playerAudioSource.PlayOneShot (murderSounds [i]);
 		}
 		FindObjectOfType<Light> ().color = new Color (0, 0, 0);
+
+		SceneController.Instance.PlayerDied ();
 	}
 
 	public void reset()

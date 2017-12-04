@@ -5,14 +5,27 @@ public class CookController : MonoBehaviour {
 
 	private GameObject _player;
 	private float health = 50;
+	public int maxNumPlayingSongs = 50;
 	public float speed = 1.0f;
 	public GameObject bloodSplatterPrefab = null;
 	bool died = false;
+
+	static int numCooks = 0;
 
 	// Use this for initialization
 	void Start () {
 		_player = PlayerController.Instance.gameObject;
 		Debug.Assert (_player != null);
+		numCooks++;
+
+		if (numCooks < maxNumPlayingSongs) {
+			GetComponentInChildren<AudioSource> ().Play ();
+		}
+	}
+
+	void OnDestroy()
+	{
+		numCooks--;
 	}
 	
 	// Update is called once per frame

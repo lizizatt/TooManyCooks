@@ -10,6 +10,10 @@ public class SceneController : MonoBehaviour {
 	public float spawnWallXVal = 5;
 	public float spawnWallHeight = 5;
 	public GameObject cookPrefab = null;
+	public GameObject[] cookSpawnPoints = null;
+
+	public GameObject blackMask = null;
+	public float fadeLength = 2.0f;
 
 	public GameObject bigCook1 = null;
 	public GameObject bigCook2 = null;
@@ -27,6 +31,8 @@ public class SceneController : MonoBehaviour {
 	public float startingCookSpeed = 5.0f;
 	public float cookSpeedGainPerDeath = .01f;
 
+	private float fadeStart = -1.0f;
+
 	private int numberOfCooks;
 	private float cookSpeed;
 
@@ -43,6 +49,25 @@ public class SceneController : MonoBehaviour {
 				_instance = FindObjectOfType<SceneController>();
 			}
 			return _instance;
+		}
+	}
+
+	public void PlayerDied()
+	{
+		fadeStart = Time.time;
+	}
+
+	void runFade()
+	{
+		if (fadeStart > 0 && blackMask != null) {
+			SpriteRenderer sr = blackMask.GetComponent<SpriteRenderer> ();
+			Color c = sr.color;
+			c.a = Mathf.Min (Mathf.Max (0.0f, (Time.time - fadeStart) / fadeLength), 1.0f);
+			sr.color = c;
+
+			if (c.a <= 0.0f) {
+				fadeStart = -1.0f;
+			}
 		}
 	}
 
@@ -74,6 +99,7 @@ public class SceneController : MonoBehaviour {
 		if (cooks.Count < numberOfCooks) {
 			spawnCooks ();
 		}
+		runFade ();
 	}
 
 	void spawnCooks()
@@ -83,7 +109,9 @@ public class SceneController : MonoBehaviour {
 		numberOfCooks += cooksToSpawn;
 
 		while (cooks.Count < numberOfCooks) {
-			Vector3 pos = new Vector3 (Random.Range (30.0f, 50f), Random.Range (-25f, 25f), transform.localPosition.z);
+
+			GameObject spawnPoint = cookSpawnPoints [Random.Range (0, cookSpawnPoints.Length)];
+			Vector3 pos = new Vector3 (spawnPoint.transform.position.x, spawnPoint.transform.position.y, transform.localPosition.z);
 			GameObject newCook = GameObject.Instantiate (cookPrefab);
 			newCook.transform.SetParent(transform);
 			newCook.transform.position = pos;

@@ -7,6 +7,8 @@ public class GatlingGun : GunBase {
 	public AudioClip bulletSound = null;
 	public AudioClip bulletDropSound = null;
 	public AudioSource audioSource = null;
+	public float soundFireRate = 1.0f;
+	private float lastFireTime = -1.0f;
 
 	public void Start()
 	{
@@ -20,11 +22,10 @@ public class GatlingGun : GunBase {
 		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (9.5f, 0, 0.0f);
 		newBullet.GetComponent<BulletController>().fire();
 
-		if (bulletSound != null) {
+		if (bulletSound != null && bulletDropSound != null && (Time.time - lastFireTime) > soundFireRate) {
 			audioSource.PlayOneShot (bulletSound);
-		}
-		if (bulletDropSound != null) {
 			audioSource.PlayOneShot (bulletDropSound);
+			lastFireTime = Time.time;
 		}
 	}
 
