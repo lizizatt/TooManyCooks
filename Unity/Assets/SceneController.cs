@@ -24,7 +24,6 @@ public class SceneController : MonoBehaviour {
 	public GameObject gunUI = null;
 
 	public GameObject finalScoreObject = null;
-	public GameObject tryAgainButton = null;
 
 	public GameObject bigCook1 = null;
 	public GameObject bigCook2 = null;
@@ -96,7 +95,6 @@ public class SceneController : MonoBehaviour {
 				gunUI.SetActive (false);
 				finalScoreObject.GetComponent<Text> ().text = "Final Score: " + numberOfCooks + (numberOfCooks > 1? " cooks" : " cook");
 				textObject.SetActive (false);
-				tryAgainButton.SetActive (true);
 
 				for (int i = 10; i < cooks.Count; i++) {
 					Destroy (cooks [i]);
@@ -149,7 +147,6 @@ public class SceneController : MonoBehaviour {
 		textObject.GetComponent<Text> ().text = "";
 		textObject.SetActive (true);
 		finalScoreObject.SetActive (false);
-		tryAgainButton.SetActive (false);
 		bigCook1.SetActive (false);
 		bigCook2.SetActive (false);
 		gunUI.SetActive (true);
@@ -183,8 +180,6 @@ public class SceneController : MonoBehaviour {
 		numberOfCooks = startingNumberOfCooks;
 		cookSpeed = startingCookSpeed;
 
-		tryAgainButton.GetComponent<Button> ().onClick.AddListener (Restart);
-
 		cookMutex.ReleaseMutex ();
 	}
 	
@@ -194,6 +189,14 @@ public class SceneController : MonoBehaviour {
 			spawnCooks ();
 		}
 		RunFade ();
+
+		if (!playing && Input.GetButton ("Space")) {
+			Restart ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.Q) || Input.GetKeyUp (KeyCode.Escape)) {
+			Application.Quit ();
+		}
 	}
 
 	void spawnCooks()
