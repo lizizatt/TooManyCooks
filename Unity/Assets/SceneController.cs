@@ -131,6 +131,8 @@ public class SceneController : MonoBehaviour {
 		textObject.SetActive (true);
 		finalScoreObject.SetActive (false);
 		tryAgainButton.SetActive (false);
+		bigCook1.SetActive (false);
+		bigCook2.SetActive (false);
 		gunUI.SetActive (true);
 		PlayerController.Instance.reset ();
 		playing = true;
@@ -187,13 +189,19 @@ public class SceneController : MonoBehaviour {
 			cooks.Add (newCook);
 		}
 
-		textObject.GetComponent<Text> ().text = numberOfCooks.ToString () + (numberOfCooks > 1? " cooks" : " cook") + " in the kitchen.";
 
 		cooksToSpawn = 0;
 
 		cookMutex.ReleaseMutex ();
 
 		float intensity = Mathf.Max (0.0f, Mathf.Min (1.0f, (numberOfCooks - mistInKillCount) / (mistMaxKillCount - mistInKillCount)));
+
+		textObject.GetComponent<Text> ().text = numberOfCooks.ToString () + (numberOfCooks > 1? " cooks" : " cook") + " in the kitchen.";
+		Color textColor = textObject.GetComponent<Text> ().color;
+		textColor.g = 1.0f - intensity;
+		textColor.b = 1.0f - intensity;
+		textObject.GetComponent<Text> ().color = textColor;
+
 		if (mistParticleSystem != null && numberOfCooks > mistInKillCount) {
 			//mistParticleSystem.Emit((int) (intensity * mistRateMax));
 		}
