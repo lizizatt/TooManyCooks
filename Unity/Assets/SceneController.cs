@@ -103,7 +103,6 @@ public class SceneController : MonoBehaviour {
 				}
 				cooks.RemoveRange(10, cooks.Count - 10);
 
-
 				HighScores.Instance.gameObject.SetActive (true);
 				if (HighScores.Instance.IsNewHighScore (numberOfCooks)) {
 					HighScores.Instance.ToggleNewScoreEntry ();
