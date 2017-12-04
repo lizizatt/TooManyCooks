@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Cook\BloodController.cs" />
      <Compile Include="Assets\Cook\CookController.cs" />
+     <Compile Include="Assets\HighScores.cs" />
      <Compile Include="Assets\Player\FlameThrower\Flamethrower.cs" />
      <Compile Include="Assets\Player\GunBase.cs" />
      <Compile Include="Assets\Player\Guns\BulletController.cs" />
@@ -56,6 +57,7 @@
      <Compile Include="Assets\Player\Guns\Shotgun.cs" />
      <Compile Include="Assets\Player\PlayerController.cs" />
      <Compile Include="Assets\SceneController.cs" />
+     <None Include="Assets\highscores.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

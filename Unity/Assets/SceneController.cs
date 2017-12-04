@@ -16,6 +16,8 @@ public class SceneController : MonoBehaviour {
 	public GameObject cookPrefab = null;
 	public GameObject[] cookSpawnPoints = null;
 
+	public GameObject startupDoodads = null;
+
 	public GameObject blackMask = null;
 	public float fadeLength = 2.0f;
 
@@ -46,7 +48,7 @@ public class SceneController : MonoBehaviour {
 	private int numberOfCooks;
 	private float cookSpeed;
 
-	private bool playing = true;
+	private bool playing = false;
 
 	private Mutex cookMutex = new Mutex();
 
@@ -95,6 +97,17 @@ public class SceneController : MonoBehaviour {
 				finalScoreObject.GetComponent<Text> ().text = "Final Score: " + numberOfCooks + (numberOfCooks > 1? " cooks" : " cook");
 				textObject.SetActive (false);
 				tryAgainButton.SetActive (true);
+
+				for (int i = 10; i < cooks.Count; i++) {
+					Destroy (cooks [i]);
+				}
+				cooks.RemoveRange(10, cooks.Count - 10);
+
+
+				HighScores.Instance.gameObject.SetActive (true);
+				if (HighScores.Instance.IsNewHighScore (numberOfCooks)) {
+					HighScores.Instance.ToggleNewScoreEntry ();
+				}
 			}
 		}
 
@@ -116,15 +129,20 @@ public class SceneController : MonoBehaviour {
 	public void Restart()
 	{
 		cookMutex.WaitOne ();
+
+		startupDoodads.SetActive (false);
+
 		numberOfCooks = 1;
 		for (int i = 0; i < cooks.Count; i++) {
 			Destroy (cooks [i]);
 		}
 		cooks.Clear ();
+
 		BloodController[] bloods = FindObjectsOfType<BloodController> ();
 		for (int i = 0; i < bloods.Length; i++) {
 			Destroy (bloods [i].gameObject);
 		}
+
 		fadeInStart = Time.time;
 		finalScoreObject.GetComponent<Text> ().text = "";
 		textObject.GetComponent<Text> ().text = "";
@@ -134,8 +152,13 @@ public class SceneController : MonoBehaviour {
 		bigCook1.SetActive (false);
 		bigCook2.SetActive (false);
 		gunUI.SetActive (true);
-		PlayerController.Instance.reset ();
+
 		playing = true;
+
+		HighScores.Instance.gameObject.SetActive (false);
+
+		PlayerController.Instance.reset ();
+
 		cookMutex.ReleaseMutex ();
 	}
 
@@ -159,9 +182,9 @@ public class SceneController : MonoBehaviour {
 		numberOfCooks = startingNumberOfCooks;
 		cookSpeed = startingCookSpeed;
 
-		spawnCooks ();
-
 		tryAgainButton.GetComponent<Button> ().onClick.AddListener (Restart);
+
+		cookMutex.ReleaseMutex ();
 	}
 	
 	// Update is called once per frame

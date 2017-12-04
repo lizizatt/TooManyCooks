@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Vector3 originalGunRight;
 
-	bool dead = false;
+	bool dead = true;
 
 	private static PlayerController _instance = null;
 	public static PlayerController Instance
